@@ -8,9 +8,30 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <button class="p-6 text-gray-900 dark:text-gray-100">
-                    <a href="">Go to products</a>
-                </button>
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <table class="table-auto">
+                        <thead>
+                            <tr>
+                            <th>Nome</th>
+                            <th>Descrição</th>
+                            <th>Preço</th>
+                            <th>Quantidade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($products as $product)
+                                <tr>
+                                    <td>{{ $product->name }}</td>
+                                    <td>{{ $product->description}}</td>
+                                    <td>{{ $product->price}}</td>
+                                    <td>{{ $product->quantity}}</td>
+                                </tr>
+                            @endforeach
+
+
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
