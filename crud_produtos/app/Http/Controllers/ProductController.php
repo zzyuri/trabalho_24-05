@@ -8,9 +8,11 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
         $products = Product::all();
@@ -31,7 +33,21 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:80'],
+            'description' => ['required', 'string'],
+            'price' => ['required', 'decimal:2'],
+            'quantity' => ['required', 'integer'],
+        ]);
+
+        $product = Product::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'quantity' => $request->quantity,
+        ]);
+
     }
 
     /**
@@ -39,7 +55,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return view('pages.products.show', ['products' => $products]);
     }
 
     /**
@@ -47,7 +63,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return var_dump($product);
+        // return view('pages.products.edit');
     }
 
     /**

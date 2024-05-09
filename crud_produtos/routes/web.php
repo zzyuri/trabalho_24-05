@@ -22,15 +22,17 @@ Route::group([
     'prefix' => 'products',
     'as' => 'products.'
 ], function() {
-    Route::get('/', [ProductController::class, 'index'])->name('index');
-    Route::get('/criar', [ProductController::class, 'create'])->name('create');
+    Route::get('/', [ProductController::class, 'index'])->name('index'); // products.index
+    Route::get('/create', [ProductController::class, 'create'])->name('create');
     Route::post('/', [ProductController::class, 'store'])->name('store');
     Route::get('/{product}', [ProductController::class, 'show'])->name('show');
-    Route::get('/{product}/editar', [ProductController::class, 'edit'])->name('edit');
+    Route::get('/{product}/edit', [ProductController::class, 'edit'])->name('edit');
     Route::put('/{product}', [ProductController::class, 'update'])->name('update');
     Route::delete('/{product}', [ProductController::class, 'destroy'])->name('destroy');
 });
 
-Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+// Route::resource('products', ProductController::class)->missing(function (Request $request) {
+//     return Redirect::route('products.index');
+// });
 
 require __DIR__.'/auth.php';

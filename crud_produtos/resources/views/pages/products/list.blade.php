@@ -39,6 +39,7 @@
 
                             <tbody class="bg-white divide-y divide-gray-200 divide-solid">
                             @foreach($products as $product)
+
                                 <tr class="bg-white">
                                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
                                         {{ $product->id }}
@@ -56,16 +57,17 @@
                                         {{ $product->quantity }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
-                                        <button>
-                                            <a>Editar</a>
-                                        </button>
+                                        <a href="{{ route('products.edit', ['product' => $product->id]) }}">
+                                            <button>Editar</button>
+                                        </a>
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
-                                        <button>
+                                        <button :href="view('products.destroy')">
                                             <a>Deletar</a>
                                         </button>
                                     </td>
                                 </tr>
+
                             @endforeach
                             </tbody>
                         </table>
