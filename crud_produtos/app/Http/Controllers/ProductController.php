@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
@@ -31,23 +32,21 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
 
-        $request->validate([
-            'name' => ['required', 'string', 'max:80'],
-            'description' => ['required', 'string'],
-            'price' => ['required', 'decimal:2'],
-            'quantity' => ['required', 'integer'],
-        ]);
-
-        $product = Product::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'price' => $request->price,
-            'quantity' => $request->quantity,
-        ]);
-
+        // dd($request);
+        // $request->validate([
+            // 'name' => ['required', 'string', 'max:80'],
+            // 'description' => ['required', 'string'],
+            // 'price' => ['required', 'decimal:2'],
+            // 'quantity' => ['required', 'integer'],
+        // ]);
+        //
+        $product = Product::create(
+            $request->validated()
+        );
+        dd($product);
     }
 
     /**
@@ -82,4 +81,5 @@ class ProductController extends Controller
     {
         //
     }
+
 }
