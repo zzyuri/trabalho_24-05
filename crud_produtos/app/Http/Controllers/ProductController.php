@@ -9,7 +9,6 @@ use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      */
@@ -37,16 +36,16 @@ class ProductController extends Controller
 
         // dd($request);
         // $request->validate([
-            // 'name' => ['required', 'string', 'max:80'],
-            // 'description' => ['required', 'string'],
-            // 'price' => ['required', 'decimal:2'],
-            // 'quantity' => ['required', 'integer'],
+        // 'name' => ['required', 'string', 'max:80'],
+        // 'description' => ['required', 'string'],
+        // 'price' => ['required', 'decimal:2'],
+        // 'quantity' => ['required', 'integer'],
         // ]);
         //
+        // dd($request->validated());
         $product = Product::create(
             $request->validated()
         );
-        dd($product);
     }
 
     /**
@@ -54,7 +53,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('pages.products.show', ['products' => $products]);
+        return view('pages.products.show', ['products' => $product]);
     }
 
     /**
@@ -62,7 +61,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return var_dump($product);
+        // return var_dump($product);
         // return view('pages.products.edit');
     }
 

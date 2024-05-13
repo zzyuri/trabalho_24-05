@@ -24,13 +24,20 @@ class ProductRequest extends FormRequest
     public function rules(): array
     {
         // dd(Auth::user());
+
         return [
             'name' => ['required', 'string', 'max:80'],
             'description' => ['required', 'string'],
-            'price' => ['required', 'decimal:2'],
+            'price' => ['required', 'string'],
             'quantity' => ['required', 'integer'],
-            // 'id_user' => Auth::user()->id
-            'id_user' => 1
+            'id_user' => ['required', 'integer'],
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'id_user' => auth()->id(),
+        ]);
     }
 }
