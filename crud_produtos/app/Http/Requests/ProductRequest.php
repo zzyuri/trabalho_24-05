@@ -30,14 +30,14 @@ class ProductRequest extends FormRequest
             'description' => ['required', 'string'],
             'price' => ['required', 'string'],
             'quantity' => ['required', 'integer'],
-            'id_user' => ['required', 'integer'],
+            'user_id' => ['required', 'integer'],
         ];
     }
 
     protected function prepareForValidation()
     {
         $this->merge([
-            'id_user' => auth()->id(),
+            'user_id' => auth()->id(),
         ]);
     }
 }

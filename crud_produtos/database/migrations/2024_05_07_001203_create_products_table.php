@@ -18,11 +18,11 @@ return new class extends Migration
             $table->decimal('price', total: 10, places: 2);
             $table->integer('quantity');
 
-            $table->unsignedBigInteger('id_user');
-            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 
-            // $table->unsignedBigInteger('id_category');
-            // $table->foreing('id_category')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
+            // $table->unsignedBigInteger('category_id');
+            // $table->foreing('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamps();
         });
