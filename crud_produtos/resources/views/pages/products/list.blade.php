@@ -29,6 +29,9 @@
                                     <span class="text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Quantidade</span>
                                 </th>
                                 <th class="px-6 py-3 bg-gray-50 text-left">
+                                    <span class="text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Adicionado por:</span>
+                                </th>
+                                <th class="px-6 py-3 bg-gray-50 text-left">
                                     <a class="text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Editar</a>
                                 </th>
                                 <th class="px-6 py-3 bg-gray-50 text-left">
@@ -57,14 +60,17 @@
                                         {{ $product->quantity }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
+                                        {{ $product->user_id }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
                                         <a href="{{ route('products.edit', ['product' => $product->id]) }}">
                                             <button>Editar</button>
                                         </a>
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
-                                        <button :href="view('products.destroy')">
-                                            <a>Deletar</a>
-                                        </button>
+                                        <a href="{{ route('products.destroy', ['product' => $product->id ]) }}">
+                                            <button>Deletar</button>
+                                        </a>
                                     </td>
                                 </tr>
 

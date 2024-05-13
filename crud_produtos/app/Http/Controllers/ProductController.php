@@ -13,8 +13,16 @@ class ProductController extends Controller
      * Display a listing of the resource.
      */
 
+    public readonly Product $product;
+
+    public function __construct()
+    {
+        $this->product = new Product();
+    }
+
     public function index()
     {
+        // $products = $this->product->all();
         $products = Product::all();
         $users = User::all();
         return view('pages.products.list', ['products' => $products, 'users' => $users]);
@@ -33,16 +41,6 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-
-        // dd($request);
-        // $request->validate([
-        // 'name' => ['required', 'string', 'max:80'],
-        // 'description' => ['required', 'string'],
-        // 'price' => ['required', 'decimal:2'],
-        // 'quantity' => ['required', 'integer'],
-        // ]);
-        //
-        // dd($request->validated());
         $product = Product::create(
             $request->validated()
         );
@@ -51,9 +49,10 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show(string $id)
     {
-        return view('pages.products.show', ['products' => $product]);
+        return var_dump($this->product->where('id', $id));
+        // return view('pages.products.show', ['products' => $product]);
     }
 
     /**
@@ -61,24 +60,31 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        // return var_dump($product);
-        // return view('pages.products.edit');
+        return view('pages.products.edit', ['product' => $product]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, string $id)
     {
-        //
+        $updated = $this->product->where('id', $id)->update($request->except(['_token', '_method']));
+
+        if ($updated) {
+            return redirect()->back()->with('message', 'Successfully updated');
+        }
+
+        return redirect()->back()->with('message', 'Error update');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy(string $id)
     {
-        //
+        $this->user->where('id', $id)->delete();
+
+        return redirect()->route('products.index');
     }
 
 }

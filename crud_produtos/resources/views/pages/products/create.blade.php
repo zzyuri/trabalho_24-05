@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Criar Produtos</title>
+    <title>Criar Produto</title>
     @vite('resources/css/app.css')
 </head>
 

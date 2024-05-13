@@ -15,6 +15,7 @@ class Product extends Model
         'price',
         'quantity',
         'user_id',
+        'category_id',
     ];
 
     protected $nullable = [
