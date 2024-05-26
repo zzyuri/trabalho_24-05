@@ -9,80 +9,68 @@ use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-
     public readonly Product $product;
+    public readonly User $user;
 
     public function __construct()
     {
         $this->product = new Product();
+        $this->user = new User();
     }
 
+    // INDEX
     public function index()
     {
-        // $products = $this->product->all();
-        $products = Product::all();
-        $users = User::all();
+        $products = $this->product->all();
+        $users = $this->product->all();
+        // $products = Product::all();
+        // $users = User::all();
         return view('pages.products.list', ['products' => $products, 'users' => $users]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // CREATE
     public function create()
     {
         return view('pages.products.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // STORE
     public function store(ProductRequest $request)
     {
         $product = Product::create(
             $request->validated()
         );
+
+        return redirect()->route('products.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
+    // SHOW
     public function show(string $id)
     {
-        return var_dump($this->product->where('id', $id));
-        // return view('pages.products.show', ['products' => $product]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    // EDIT
     public function edit(Product $product)
     {
         return view('pages.products.edit', ['product' => $product]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // UPDATE
     public function update(Request $request, string $id)
     {
         $updated = $this->product->where('id', $id)->update($request->except(['_token', '_method']));
 
         if ($updated) {
-            return redirect()->back()->with('message', 'Successfully updated');
+            return redirect()->route('products.index');
         }
 
         return redirect()->back()->with('message', 'Error update');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    // DESTROY
+    public function destroy(Product $product)
     {
-        $this->user->where('id', $id)->delete();
+        $product->delete();
 
         return redirect()->route('products.index');
     }

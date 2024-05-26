@@ -68,9 +68,11 @@
                                         </a>
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
-                                        <a href="{{ route('products.destroy', ['product' => $product->id ]) }}">
-                                            <button>Deletar</button>
-                                        </a>
+                                        <form action="{{ route('products.destroy', ['product' => $product]) }}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button type="submit">Delete</button>
+                                        </form>
                                     </td>
                                 </tr>
 
@@ -83,7 +85,15 @@
                     <!-- </div> -->
 
                 </div>
+
             </div>
         </div>
+
     </div>
+                        <button class=" fixed bottom-5 left-5 hover:bg-[#96ACC2] text-white bg-[#272727] m-5 font-medium rounded-full text-xl w-14 h-14 text-center me-2 mb-2 ">
+                        <a href={{ route('products.create') }}>
+                            +
+                        </a>
+                    </button>
+
 </x-app-layout>

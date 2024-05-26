@@ -1,8 +1,7 @@
-<x-app-layout>
-    <x-slot>
-        <h2>
-            Show Products
-        </h2>
-    </x-slot>
-
-</x-app-layout>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{{ $product->name }}</title>
+    </head>
+</html>
