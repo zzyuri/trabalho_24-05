@@ -5,7 +5,7 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect(route('dashboard'));
 });
 
 Route::get('/dashboard', function () {
@@ -20,9 +20,10 @@ Route::middleware('auth')->group(function () {
 
 Route::group([
     'prefix' => 'products',
-    'as' => 'products.'
+    'as' => 'products.',
+    'middleware' => 'auth'
 ], function() {
-    Route::get('/', [ProductController::class, 'index'])->name('index'); // products.index
+    Route::get('/', [ProductController::class, 'index'])->name('index');
     Route::get('/create', [ProductController::class, 'create'])->name('create');
     Route::post('/', [ProductController::class, 'store'])->name('store');
     Route::get('/{product}', [ProductController::class, 'show'])->name('show');
