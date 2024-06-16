@@ -18,8 +18,13 @@ return new class extends Migration
             $table->decimal('price', total: 10, places: 2);
             $table->integer('quantity');
 
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            // $table->unsignedBigInteger('user_id');
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+
+            $table->foreign('user_id')->constrained();
+
+            $table->foreignId('category_id')->constrained();
+
 
             $table->timestamps();
         });
