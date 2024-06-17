@@ -21,7 +21,7 @@ return new class extends Migration
             // $table->unsignedBigInteger('user_id');
             // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 
-            $table->foreign('user_id')->constrained();
+            $table->foreignId('user_id')->constrained();
 
             $table->foreignId('category_id')->constrained();
 

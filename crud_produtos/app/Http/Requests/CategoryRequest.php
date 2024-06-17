@@ -4,9 +4,9 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Models\Product;
+use App\Http\Models\Category;
 
-class ProductRequest extends FormRequest
+class CategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,11 +28,7 @@ class ProductRequest extends FormRequest
 
         return [
             'name' => ['required', 'string', 'max:80'],
-            'description' => ['required', 'string'],
-            'price' => ['required', 'string'],
-            'quantity' => ['required', 'integer'],
             'user_id' => ['required', 'integer'],
-            'category_id' => ['required', 'integer'],
         ];
     }
 

@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\User;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\ProductRequest;
 use Redirect;
 
@@ -13,19 +16,36 @@ class ProductController extends Controller
     // INDEX
     public function index()
     {
-        $products = Product::all();
-        $users = User::all();
+        $user = Auth::user();
+        $products = Product::where('user_id', $user->id)->get();
+        $categories = Category::where('user_id', $user->id)->get();
 
-        return view('pages.products.list', ['products' => $products, 'users' => $users]);
+        return view('pages.products.list', ['products' => $products, 'categories' => $categories]);
     }
 
     public function create()
     {
-        return view('pages.products.create');
+        $user = Auth::user();
+        $categories = Category::where('user_id', $user->id)->get();
+        return view('pages.products.create', ['categories' => $categories]);
     }
 
     public function store(ProductRequest $request)
     {
+        $messages = [
+            'required' => 'The :attribute field is OBRIGATÓRIO.',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            $request->validated(),
+        ], $messages);
+
+        if ($validator->fails()) {
+            return Redirect::route('products.create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
         $product = Product::create(
             $request->validated()
         );
@@ -40,7 +60,9 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        return view('pages.products.edit', ['product' => $product]);
+        $user = Auth::user();
+        $categories = Category::where('user_id', $user->id)->get();
+        return view('pages.products.edit', ['product' => $product, 'categories' => $categories]);
     }
 
     public function update(Request $request, string $id)
@@ -51,14 +73,14 @@ class ProductController extends Controller
             return Redirect::route('products.index');
         }
 
-        return redirect()->back()->with('message', 'Error update');
+        return Redirect::back()->with('message', 'Error update');
     }
 
     public function destroy(Product $product)
     {
         $product->delete();
 
-        return redirect()->route('products.index');
+        return Redirect::route('products.index');
     }
 
 }
